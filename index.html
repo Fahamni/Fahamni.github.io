@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fahamni – Find Your Perfect Tutor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #000080;
+      --navy2: #1a1aad;
+      --blue-light: #e8e8f8;
+      --white: #ffffff;
+      --slate: #64748b;
+      --text: #0f172a;
+      --bg: #f1f5f9;
+      --border: #e2e8f0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Sora', sans-serif;
+      font-weight: 300;
+    }
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 1.2rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,128,0.06);
+    }
+    .logo { font-size: 1.5rem; font-weight: 700; color: var(--navy); }
+    nav a {
+      font-size: 0.85rem;
+      color: var(--slate);
+      text-decoration: none;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      transition: all 0.2s;
+    }
+    nav a:hover { border-color: var(--navy); color: var(--navy); }
+
+    .hero {
+      background: linear-gradient(135deg, #000080 0%, #1a1aad 100%);
+      padding: 6rem 5% 5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.9);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.4rem 1.2rem;
+      border-radius: 100px;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .hero h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em { font-style: italic; color: rgba(255,255,255,0.7); }
+    .hero p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 520px;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
+    }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-white {
+      background: var(--white);
+      color: var(--navy);
+      padding: 0.9rem 2.2rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
+    }
+    .btn-white:hover { transform: translateY(-2px); }
+    .btn-outline-white {
+      border: 1.5px solid rgba(255,255,255,0.4);
+      color: var(--white);
+      padding: 0.9rem 2.2rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-outline-white:hover { border-color: white; transform: translateY(-2px); }
+
+    .stats {
+      background: var(--white);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--border);
+    }
+    .stat {
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Lora', serif;
+      font-size: 2.4rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.3rem;
+    }
+    .stat-label { font-size: 0.85rem; color: var(--slate); }
+
+    .section { padding: 5rem 5%; }
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 0.8rem;
+    }
+    .section h2 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 3rem;
+      max-width: 480px;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .step {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .step:hover { box-shadow: 0 8px 32px rgba(0,0,128,0.1); transform: translateY(-4px); }
+    .step-num {
+      width: 36px; height: 36px;
+      background: var(--navy);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+    }
+    .step h3 { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
+    .step p { font-size: 0.875rem; color: var(--slate); line-height: 1.6; }
+
+    /* FOR WHO — now 3 cards */
+    .for-section {
+      background: var(--white);
+      padding: 5rem 5%;
+    }
+    .for-section .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 0.8rem;
+    }
+    .for-section h2 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2.5rem;
+    }
+    .for-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .for-card {
+      border-radius: 20px;
+      padding: 2.5rem;
+      border: 1.5px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .for-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,128,0.1); }
+    .for-card.student { background: var(--blue-light); border-color: rgba(0,0,128,0.15); }
+    .for-card.parent { background: #f0f4ff; border-color: rgba(0,0,128,0.12); }
+    .for-card.tutor { background: linear-gradient(135deg,#000080,#1a1aad); }
+    .for-card .icon { font-size: 2.2rem; margin-bottom: 1rem; }
+    .for-card h3 {
+      font-family: 'Lora', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+    .for-card.student h3,
+    .for-card.parent h3 { color: var(--navy); }
+    .for-card.tutor h3 { color: white; }
+    .for-card p { font-size: 0.9rem; line-height: 1.6; }
+    .for-card.student p,
+    .for-card.parent p { color: var(--slate); }
+    .for-card.tutor p { color: rgba(255,255,255,0.75); }
+    .for-card ul {
+      margin-top: 0.8rem;
+      padding-left: 1.1rem;
+    }
+    .for-card ul li {
+      font-size: 0.85rem;
+      line-height: 1.8;
+    }
+    .for-card.student ul li,
+    .for-card.parent ul li { color: var(--slate); }
+    .for-card.tutor ul li { color: rgba(255,255,255,0.7); }
+
+    footer {
+      background: var(--text);
+      padding: 2.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    footer .logo { color: white; font-size: 1.2rem; font-weight: 700; }
+    footer p { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+    footer a { font-size: 0.85rem; color: rgba(255,255,255,0.6); text-decoration: none; }
+    footer a:hover { color: white; }
+
+    @media (max-width: 640px) {
+      .stats { grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .for-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Fahamni</div>
+    <a href="privacy.html">Privacy Policy</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-badge">📚 Tutor Discovery Platform</div>
+    <h1>Find the tutor<br><em>you deserve.</em></h1>
+    <p>Fahamni connects students and parents with qualified tutors nearby. Learn at your own pace, on your own schedule.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-white">Download the App</a>
+      <a href="privacy.html" class="btn-outline-white">Privacy Policy</a>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Qualified Tutors</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">20+</div>
+      <div class="stat-label">Subjects Covered</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4.9★</div>
+      <div class="stat-label">Average Rating</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <p class="section-label">How it works</p>
+    <h2>Start learning in 3 simple steps</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Create your profile</h3>
+        <p>Sign up with Google as a student, parent, or tutor and set up your profile in minutes.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Explore tutors</h3>
+        <p>Browse verified tutors nearby, filter by subject, price, availability, and age group.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Book a session</h3>
+        <p>Book directly in the app and start learning at your convenience.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="for-section">
+    <p class="section-label">Who it's for</p>
+    <h2>Built for everyone in the learning journey</h2>
+    <div class="for-cards">
+
+      <div class="for-card student">
+        <div class="icon">🎓</div>
+        <h3>For Students</h3>
+        <p>Find the right tutor for any subject — from math to languages.</p>
+        <ul>
+          <li>Browse verified tutor profiles</li>
+          <li>Read reviews & compare prices</li>
+          <li>Book sessions that fit your schedule</li>
+        </ul>
+      </div>
+
+      <div class="for-card parent">
+        <div class="icon">👨‍👩‍👧</div>
+        <h3>For Parents</h3>
+        <p>Find trusted tutors for your children with full peace of mind.</p>
+        <ul>
+          <li>Search tutors suited for your child's level</li>
+          <li>View tutor credentials & ratings</li>
+          <li>Monitor your child's learning progress</li>
+        </ul>
+      </div>
+
+      <div class="for-card tutor">
+        <div class="icon">👨‍🏫</div>
+        <h3>For Tutors</h3>
+        <p>Grow your tutoring business and reach more students.</p>
+        <ul>
+          <li>Create a professional profile</li>
+          <li>Set your own availability & pricing</li>
+          <li>Connect with motivated students</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="logo">Fahamni</div>
+    <p>© 2026 Fahamni. All rights reserved.</p>
+    <a href="privacy.html">Privacy Policy</a>
+  </footer>
+
+</body>
+</html>
